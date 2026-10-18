@@ -1,7 +1,24 @@
-function TodoItem({ task }) { //Destructuring the props. Component expects a task object to be passed to it.
+function TodoItem({ task, onToggle, onDelete }) {
   return (
-    <li className="todo-item">
-      <span>{task.text}</span> {/*Curly braces to inject the JS value (the text of the task) into the JSX */ }
+    // We use a template literal to add the class "completed" ONLY if task.completed is true.
+    // This will allow us to add strikethrough CSS later.
+    <li className={`todo-item ${task.completed ? 'completed' : ''}`}>
+      
+      <span>{task.text}</span>
+      
+      <div className="task-buttons">
+        {/* When clicked, it calls onToggle and passes the task's ID up the chain */}
+        <button onClick={() => onToggle(task.id)}>
+          {/* Ternary operator: If completed, show "Undo", otherwise show "Complete" */}
+          {task.completed ? 'Undo' : 'Complete'}
+        </button>
+        
+        {/* When clicked, it calls onDelete and passes the task's ID up the chain */}
+        <button onClick={() => onDelete(task.id)}>
+          Delete
+        </button>
+      </div>
+
     </li>
   );
 }

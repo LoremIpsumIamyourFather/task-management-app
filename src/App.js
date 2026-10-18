@@ -1,8 +1,3 @@
-
-//App.js is the BOSS. It holds the list of tasks (tasks).
-//AddTodoForm.js is the Employee. It holds the typing state (inputText). It takes the text and hands it to the Boss (onAdd).
-
-
 import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -10,28 +5,36 @@ import AddTodoForm from './components/AddTodoForm';
 import TodoList from './components/TodoList';
 
 function App() {
-  // 1. Create the state to hold the tasks. App holds the list of tasks. 
-const [tasks, setTasks] = useState([]);
+  // 1. State to hold the master list of tasks
+  const [tasks, setTasks] = useState([]);
 
-  
-
-  // 2. The function that adds a new task to the state.
+  // 2. Function to ADD a task (takes the text from the form)
   function addTask(taskText) {
     const newTask = { 
-      id: Date.now(), // Generates a unique ID based on the current time.
-      text: taskText, // The text the user typed.
-      completed: false // Every new task starts as not completed.
-    };// The spread operator (...tasks) copies the old array and adds the new task.
-    setTasks([...tasks, newTask]);
+      id: Date.now(), // Generates a unique ID using the current timestamp
+      text: taskText, 
+      completed: false 
+    };
+    setTasks([...tasks, newTask]); // Spreads the old array and adds the new task
   }
-  // ...  addTask function is above here ...
 
-  console.log("CURRENT TASKS:", tasks); 
+  // 3. Function to TOGGLE complete status (takes the ID of the clicked task)
+  function toggleTask(id) {
+    setTasks(tasks.map(task => 
+      // If the task ID matches the clicked ID, flip 'completed' true/false
+      // Otherwise, return the task exactly as it was
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  }
 
+  // 4. Function to DELETE a task (takes the ID of the clicked task)
+  function deleteTask(id) {
+    // .filter() keeps only the tasks where the ID does NOT match the clicked ID
+    setTasks(tasks.filter(task => task.id !== id));
+  }
 
   return (
     <BrowserRouter>
-      {/* The Navigation Bar - always visible */}
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
@@ -40,7 +43,6 @@ const [tasks, setTasks] = useState([]);
         </ul>
       </nav>
 
-      {/* The Traffic Cop - swaps components based on URL */}
       <Routes>
         <Route path="/" element={
           <div>
@@ -53,11 +55,15 @@ const [tasks, setTasks] = useState([]);
           path="/todos" 
           element={
             <div>
-              {/* Pass the addTask function down to the form as 'onAdd'*//*Comments w/i JSX must be wrapped in curly braces */ }
+              {/* Pass the addTask function to the form */}
               <AddTodoForm onAdd={addTask} />
-
-              {/* We pass the tasks array down to the lost as 'tasks'*/ }
-              <TodoList tasks={tasks} />
+              
+              {/* Pass the tasks list AND the toggle/delete functions down the chain */}
+              <TodoList 
+                tasks={tasks} 
+                onToggle={toggleTask} 
+                onDelete={deleteTask} 
+              />
             </div>
           } 
         />

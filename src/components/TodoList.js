@@ -1,10 +1,19 @@
-import TodoItem from './TodoItem';//Import the child component TodoItem//
+import TodoItem from './TodoItem';
 
-function TodoList({ tasks }) {
+// Destructuring the props passed from App.js
+function TodoList({ tasks, onToggle, onDelete }) {
   return (
     <ul className="todo-list">
-      {tasks.map((task) => ( /* use the .map() array method inside the curly braces. This loops through every task and returns a <TodoItem /> component  */ 
-        <TodoItem key={task.id} task={task} /> /* key={task.id}:Critical. React needs this to track which item is which.  task={task}: Pass the single task object down to TodoItem as a prop/>*/ 
+      {/* Loop through every task in the array */}
+      {tasks.map((task) => (
+        // For each task, render a TodoItem and pass down the specific task data
+        // AND the functions needed to update or delete it
+        <TodoItem 
+          key={task.id} // React needs this unique key to track the list
+          task={task} 
+          onToggle={onToggle} 
+          onDelete={onDelete} 
+        />
       ))}
     </ul>
   );
