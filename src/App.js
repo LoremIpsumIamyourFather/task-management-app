@@ -1,8 +1,34 @@
-import './App.css'; //JS requires all import statements to be at the top before other logic. You can only define function App() once and export default App once per file.//
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; //BrowserRouter: Wraps the whole app and listens to the browser's URL bar.//Routes: the container that holds all your specific routes.
-//Route;Maps a specific URL path like /todos) to a specific component (like <h1>Todos Page Coming Soon</h1>).// //Link: replaces the standard HTML <a href="..."> tag. It allows you to navigate w/o the browser performing a full page reload."
+
+//App.js is the BOSS. It holds the list of tasks (tasks).
+//AddTodoForm.js is the Employee. It holds the typing state (inputText). It takes the text and hands it to the Boss (onAdd).
+
+
+import { useState } from 'react';
+import './App.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import AddTodoForm from './components/AddTodoForm';
+import TodoList from './components/TodoList';
+
 function App() {
+  // 1. Create the state to hold the tasks. App holds the list of tasks. 
+const [tasks, setTasks] = useState([]);
+
+  
+
+  // 2. The function that adds a new task to the state.
+  function addTask(taskText) {
+    const newTask = { 
+      id: Date.now(), // Generates a unique ID based on the current time.
+      text: taskText, // The text the user typed.
+      completed: false // Every new task starts as not completed.
+    };// The spread operator (...tasks) copies the old array and adds the new task.
+    setTasks([...tasks, newTask]);
+  }
+  // ...  addTask function is above here ...
+
+  console.log("CURRENT TASKS:", tasks); 
+
+
   return (
     <BrowserRouter>
       {/* The Navigation Bar - always visible */}
@@ -16,7 +42,6 @@ function App() {
 
       {/* The Traffic Cop - swaps components based on URL */}
       <Routes>
-        {/* Temporary placeholder for the Home page */}
         <Route path="/" element={
           <div>
             <h1>Task Management App</h1>
@@ -24,8 +49,19 @@ function App() {
           </div>
         } />
 
-        {/* Temporary placeholders for the required views */}
-        <Route path="/todos" element={<AddTodoForm />} />
+        <Route 
+          path="/todos" 
+          element={
+            <div>
+              {/* Pass the addTask function down to the form as 'onAdd'*//*Comments w/i JSX must be wrapped in curly braces */ }
+              <AddTodoForm onAdd={addTask} />
+
+              {/* We pass the tasks array down to the lost as 'tasks'*/ }
+              <TodoList tasks={tasks} />
+            </div>
+          } 
+        />
+
         <Route path="/contact" element={<h1>Contact Page Coming Soon</h1>} />
       </Routes>
     </BrowserRouter>
@@ -33,5 +69,5 @@ function App() {
 }
 
 export default App;
-
-//Ctrl + C stops the server. Restart it with npm start.//
+//npm start to run the app. The app will be available at http://localhost:3000
+//Ctrl + C to stop the server
