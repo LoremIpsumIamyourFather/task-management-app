@@ -1,32 +1,32 @@
-import { useState } from 'react'; //Imports the hook to remember what the user types in the input field. React hooks are built-in JS functions that let functional components "hook into" React's underlying features. useState is a hook that lets you add React state to functional components. 
+import { useState } from 'react';
 
+function AddTodoForm({ onAdd }) { // Receives the onAdd function as a prop
+  // STATE: Holds the text the user is currently typing
+  const [inputText, setInputText] = useState('');
 
-function AddTodoForm({ onAdd }) {//Destructs the onAdd prop passed from App.js
-  const [inputText, setInputText] = useState('');// Creates state to hold the input value.
-
-  function handleSubmit(event) { //Runs when the form is submitted
-    event.preventDefault(); //Stops the browser from submitting the page.
-    if (inputText.trim() === '') return; //Ignores empty submissions
+  function handleSubmit(event) {
+    event.preventDefault(); // Stops the page from refreshing when Enter is hit.
     
-    onAdd(inputText); //Sends the text up to App.js.
-    setInputText(''); // Clears the input box after submitting.
+    if (inputText.trim() === '') return; // Don't add blank tasks
+    
+    onAdd(inputText); // Sends the text up to App.js
+    setInputText(''); // Clear the input box
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      {/*Comments INSIDE the return need curly braces!!! */}
       <input 
         type="text" 
         placeholder="Add a new task..." 
-        value={inputText} // The input box value is controlled by React.
-        onChange={(event) => setInputText(event.target.value)} //Updates state on every keystroke.
+        value={inputText} // The input is tied to state
+        onChange={(event) => setInputText(event.target.value)} // Update state on every keystroke
       />
       <button type="submit">Add Task</button>
     </form>
   );
 }
 
-export default AddTodoForm; // Makes this available for App.js to import.
+export default AddTodoForm;
 
 //npm start to run the app. The app will be available at http://localhost:3000
 //Ctrl + C to stop the server

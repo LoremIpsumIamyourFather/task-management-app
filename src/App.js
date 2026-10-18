@@ -3,34 +3,48 @@ import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import AddTodoForm from './components/AddTodoForm';
 import TodoList from './components/TodoList';
+import FilterButtons from './components/FilterButtons';
 
 function App() {
-  // 1. State to hold the master list of tasks
+  // 1. STATE: Holds the master array of all tasks
   const [tasks, setTasks] = useState([]);
+  
+  // 2. STATE: Holds the current filter ('all', 'completed', or 'incomplete')
+  const [filter, setFilter] = useState('all');
 
-  // 2. Function to ADD a task (takes the text from the form)
+  // 3. FUNCTION: Adds a new task
   function addTask(taskText) {
     const newTask = { 
-      id: Date.now(), // Generates a unique ID using the current timestamp
-      text: taskText, 
-      completed: false 
+      id: Date.now(), // Generates a unique ID
+      text: taskText, // The text from the form
+      completed: false // New tasks are not completed by default
     };
-    setTasks([...tasks, newTask]); // Spreads the old array and adds the new task
+    setTasks([...tasks, newTask]); // Spread operator keeps old tasks and adds the new one
   }
 
-  // 3. Function to TOGGLE complete status (takes the ID of the clicked task)
+  // 4. FUNCTION: Flips the completed status of a task
   function toggleTask(id) {
     setTasks(tasks.map(task => 
-      // If the task ID matches the clicked ID, flip 'completed' true/false
-      // Otherwise, return the task exactly as it was
+      // If the ID matches, flip the boolean. Otherwise, leave it alone.
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   }
 
-  // 4. Function to DELETE a task (takes the ID of the clicked task)
+  // 5. FUNCTION: Removes a task
   function deleteTask(id) {
-    // .filter() keeps only the tasks where the ID does NOT match the clicked ID
+    // Keep only the tasks whose ID does NOT match the one we want to delete
     setTasks(tasks.filter(task => task.id !== id));
+  }
+
+  // 6. FUNCTION: Determines which tasks to show based on the filter state
+  function getFilteredTasks() {
+    if (filter === 'completed') {
+      return tasks.filter(task => task.completed === true); // Only show completed
+    }
+    if (filter === 'incomplete') {
+      return tasks.filter(task => task.completed === false); // Only show incomplete
+    }
+    return tasks; // If filter is 'all', return the whole list
   }
 
   return (
@@ -58,9 +72,12 @@ function App() {
               {/* Pass the addTask function to the form */}
               <AddTodoForm onAdd={addTask} />
               
-              {/* Pass the tasks list AND the toggle/delete functions down the chain */}
+              {/* Pass the current filter state and the setter function */}
+              <FilterButtons filter={filter} onFilterChange={setFilter} />
+              
+              {/* Pass the RESULT of getFilteredTasks(), not the whole array */}
               <TodoList 
-                tasks={tasks} 
+                tasks={getFilteredTasks()} 
                 onToggle={toggleTask} 
                 onDelete={deleteTask} 
               />
