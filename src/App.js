@@ -40,7 +40,7 @@ function App() {
 
   // FUNCTION: Removes a task
   function deleteTask(id) {
-    // Keep only the tasks whose ID does NOT match the one to delete.  Keep only the tasks whose ID does NOT match the one we want to delete
+    // Keep only the tasks whose ID does NOT match the one to delete.  Keep only the tasks whose ID does NOT match the one want to delete
     setTasks(tasks.filter(task => task.id !== id));
   }
 
@@ -73,7 +73,7 @@ function App() {
           path="/todos" 
           element={
             <div className="todo-container">
-              {/* The todo-container class creates the side-by-side layout we added in CSS */}
+              {/* The todo-container class creates the side-by-side layout added in CSS */}
               <div className="todo-left">
                 <AddTodoForm onAdd={addTask} />
               </div>
