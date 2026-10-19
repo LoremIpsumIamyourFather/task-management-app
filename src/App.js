@@ -68,22 +68,24 @@ function App() {
           </div>
         } />
 
-        <Route 
+              <Route 
           path="/todos" 
           element={
-            <div>
-              {/* Pass the addTask function to the form */}
-              <AddTodoForm onAdd={addTask} />
+            <div className="todo-container"> {/* Applied the side-by-side container */}
               
-              {/* Pass the current filter state and the setter function */}
-              <FilterButtons filter={filter} onFilterChange={setFilter} />
-              
-              {/* Pass the RESULT of getFilteredTasks(), not the whole array */}
-              <TodoList 
-                tasks={getFilteredTasks()} 
-                onToggle={toggleTask} 
-                onDelete={deleteTask} 
-              />
+              <div className="todo-left">
+                <AddTodoForm onAdd={addTask} />
+              </div>
+
+              <div className="todo-right">
+                <FilterButtons filter={filter} onFilterChange={setFilter} />
+                <TodoList 
+                  tasks={getFilteredTasks()} 
+                  onToggle={toggleTask} 
+                  onDelete={deleteTask} 
+                />
+              </div>
+
             </div>
           } 
         />
@@ -102,3 +104,4 @@ function App() {
 export default App;
 //npm start to run the app. The app will be available at http://localhost:3000
 //Ctrl + C to stop the server
+

@@ -1,6 +1,5 @@
 //src/components/FilterButtons.js (The Controls: Changes the filter state in App)
 
-
 function FilterButtons({ filter, onFilterChange }) {
   return (
     <div className="filter-buttons">
