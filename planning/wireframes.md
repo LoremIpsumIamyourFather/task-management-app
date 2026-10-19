@@ -1,55 +1,15 @@
 # Wireframes
 
-## /todos view (desktop)
+Below are the hand-drawn wireframes for the application. Each drawing contains both the `/todos` view and the `/contact` view.
 
-┌───────────────────────────────────────────────────────┐
-│  Task Management App         Home  Todos  Contact     │
-├───────────────────────────────────────────────────────┤
-│                                                       │
-│   ┌──────────────────────┐  ┌──────────┐             │
-│   │  Add a task...       │  │   Add    │             │
-│   └──────────────────────┘  └──────────┘             │
-│                                                       │
-│   [All]  [Completed]  [Incomplete]                    │
-│                                                       │
-│   ┌─────────────────────────────────────────────────┐ │
-│   │  ☐  Buy groceries              [Complete] [X]  │ │
-│   ├─────────────────────────────────────────────────┤ │
-│   │  ☑  Finish React project       [Complete] [X]  │ │
-│   ├─────────────────────────────────────────────────┤ │
-│   │  ☐  Call the dentist           [Complete] [X]  │ │
-│   └─────────────────────────────────────────────────┘ │
-│                                                       │
-└───────────────────────────────────────────────────────┘
+## Desktop View (Todos & Contact)
+![Desktop wireframe showing both Todos and Contact](./wireframe-desktop.jpeg)
 
-## /contact view (desktop)
+## Mobile View (Todos & Contact)
+![Mobile wireframe showing both Todos and Contact](./wireframe-mobile.jpeg)
 
-┌───────────────────────────────────────────────────────┐
-│  Task Management App         Home  Todos  Contact     │
-├───────────────────────────────────────────────────────┤
-│                                                       │
-│   Contact                                             │
-│                                                       │
-│   First Name                                          │
-│   [_____________________________]                     │
-│                                                       │
-│   Last Name                                           │
-│   [_____________________________]                     │
-│                                                       │
-│   Email                                               │
-│   [_____________________________]                     │
-│                                                       │
-│   Comments                                            │
-│   [_____________________________]                     │
-│   [_____________________________]                     │
-│                                                       │
-│   [    Send    ]                                      │
-│                                                       │
-└───────────────────────────────────────────────────────┘
-
-## Mobile (320px and below)
-
-Both views stack vertically:
+### Mobile Layout Behavior
+On mobile screens, both views stack vertically:
 - Title stacks above nav links
 - Nav links stack vertically
 - Add form: input above button

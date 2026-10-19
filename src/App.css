@@ -154,3 +154,13 @@ button:hover {
   flex-direction: column;
   gap: 5px;
 }
+
+/* =========================================
+   8. MOBILE RESPONSIVENESS
+   ========================================= */
+/* If the screen is 768px or smaller, stack the columns vertically */
+@media (max-width: 768px) {
+  .todo-container {
+    flex-direction: column; /* Stacks the form and list on top of each other */
+  }
+}
