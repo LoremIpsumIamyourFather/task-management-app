@@ -1,3 +1,6 @@
+//src/App.js (The Boss: Holds the state, the logic, and the routes)
+
+import ContactForm from './components/ContactForm';
 import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -85,7 +88,12 @@ function App() {
           } 
         />
 
-        <Route path="/contact" element={<h1>Contact Page Coming Soon</h1>} />
+        <Route path="/contact" element={
+  <div>
+    <h1>Contact Us</h1>
+    <ContactForm />
+  </div>
+} />
       </Routes>
     </BrowserRouter>
   );
